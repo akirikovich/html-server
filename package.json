@@ -1,0 +1,14 @@
+{
+	"name": "Ingenium",
+  	"description": "HTML server",
+  	"version": "0.0.1",
+  	"homepage": "",
+  	"author": {
+    	"name": "Alexandr Kirikovich",
+    	"url": "http://akirikovich.ru"
+  	},
+  	"main": "app.js",
+  	"devDependencies": {
+      "express": "*"
+  	}
+}
