@@ -1,28 +1,42 @@
-html-server
+Simple web server for html developer
 ===========
 
-Веб-сервер для эйчтиэмэль-верстальщика и веб-технолога под node.js.
+Web server for html developer under node.js.
 
-Для развертывания сервера необходимо сделать два шага:
+## Installation
 
-* Склонировать проект и в директории репозитория выполнить `npm install`
-* Запустить сервер следующей командой (по умолчанию сервер запускается на 3125 порту): `node app.js -port=<требуемый порт>`
+```bash
+$ npm install html-server
+```
+
+## Usage
+* Firstly you should make some configuration in file server.conf.json:
+```json
+{
+	"paths": { // Local path for static data
+		"css": ["/js", "/prod/js"],
+		"images": ["/i", "/prod/i"],
+		"js": ["/js", "/prod/js"],
+		"dummy": ["/dummy", "/prod/dummy"]
+	},
+	"port": "3128", // Web server port
+	"router": { // Main router for html pages
+		"pages": {
+			"rule": "/pages/:page",
+			"path": "./prod/pages",
+			"ext": "html"
+		}
+	}
+}
+```
+* Then run command: `node server.js`
+
+Your server will be available at `http://localhost:<port>`.
 
 
-###Использование###
+##Features
 
-По умолчанию, сервер будет доступен по этому адресу: `http://localhost:<указанный порт>` и все страницы будут доступны по этому же адресу с указанием имени эйчтиэмэль файла страницы, например: `http://localhost:3125/contacts` — будет открыта страница `contacts.html`.
-
-###Настройка###
-
-Все пути (откуда брать сверстанные страницы, цсс, картинки, яваскрипт) пока что настраиваются, непосредственно, в самом файле `app.js`, который будет еще 100500 раз подвержен глобальным изменениям.
-
-###Что можно сделать###
-
-Действительно, для чего-то ж этот сервер написан. На данный момент он может упростить жизнь в следующем:
-
-* Роутинг. Можно настраивать механизмы маршрутизации, не зависящие от физического расположения файлов;
-* Можно передать get параметр `time` в url и сымитировать задержку со стороны сервера, например, это полезно для проверки аякс-запросов и всяких прелоадеров;
-
-
-
+* HTML pages routing. You can set diffent rules for routing;
+* GET parameters parser. You can use these parameters:
+* `time` — emulates server delay. It useful for preloaders and ajax queries.
+Example: `http://localhost:3128?time=1000` emulates one second delay.

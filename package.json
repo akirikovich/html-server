@@ -1,12 +1,19 @@
 {
 	"name": "html-server",
 	"description": "Simple web server for html developer",
-	"version": "0.0.2",
+	"keywords": "html, build, server",
+	"version": "0.1.0",
 	"author": {
 		"name": "Kirikovich Alexandr"
 	},
 	"main": "server.js",
 	"dependencies": {
 		"express": "*"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mexe/html-server"
+	},
+	"bugs": "https://github.com/mexe/html-server/issues",
+	"license": "MIT"
 }
