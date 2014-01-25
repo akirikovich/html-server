@@ -7,7 +7,7 @@ var express = require("express"),
 
 
 
-helper.setConfig(config, app, express) // Setting configuration params
+helper.setConfig(config, app, express); // Setting configuration params
 
 
 
@@ -22,6 +22,10 @@ if(router.pages) {
 		fs.readFile(pages.path + req.route.params.page + pages.ext, "utf8", function(err, text) { //Read required html page
 
 			helper.parseParams(req.query, function() { // Parse GET params
+				if (err) {
+					res.send(404, 'Sorry, there is error occured. Try again later!');
+					return;
+				}
 				res.send(text);
 			});
 
