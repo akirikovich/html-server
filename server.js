@@ -1,36 +1,31 @@
 var express = require("express"),
 	app = express(), // Express application initialization
 	fs = require("fs"), // File system module,
-	helper = require("./modules/helper").Helper, // Helper`s methods
-	config = require("./server.conf"), // Configuration parameters,
-	router = helper.getRouter(config); // Router parameters
+	path = require("path"),
+	helper = require("./src/helper"); // Helper`s methods
 
 
-
-helper.setConfig(config, app, express) // Setting configuration params
-
+helper.setConfig(app, express); // Setting configuration params
 
 
 // Router
 // Simple pages
-if(router.pages) {
+app.get('/:page', function(req, res) {
+	var basePath = app.get('basepath') || '';
+	var nameFile = path.resolve(basePath, req.route.params.page);
 
-	var pages = router.pages;
+	fs.readFile(nameFile, "utf8", function(err, text) { //Read required html page
 
-	app.get(pages.rule, function(req, res) {
-
-		fs.readFile(pages.path + req.route.params.page + pages.ext, "utf8", function(err, text) { //Read required html page
-
-			helper.parseParams(req.query, function() { // Parse GET params
-				res.send(text);
-			});
-
+		helper.parseParams(req.query, function() { // Parse GET params
+			if (err) {
+				return res.send(404, 'There is an error occured. Please, try again later!');
+			}
+			res.send(text);
 		});
 
 	});
-}
-// //Simple pages
-// //Router
+
+});
 
 
 
